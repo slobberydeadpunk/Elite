@@ -113,5 +113,23 @@ Chain<T>& Chain<T>::Delete(int k, T& x) {
 
 template<class T>
 Chain<T>& Chain<T>::Insert(int k, const T& x) {
+    if (k < 1 || !first_) 
+        throw OutOfBounds();
     
+    ChainNode<T>* p = first_;
+    for (int i = 1; i < k && q; i++)
+        p = p->next_;
+
+    if (k > 0 && !p) throw OutOfBounds();
+
+    ChainNode<T>* n = new ChainNode<T>;
+    if (k == 0) {
+        n->next_ = first_;
+        first_ = n;
+    }
+    else {
+        n->data_ = x;
+        n->next_ = p->next_;
+    }
+    return *this;
 }
