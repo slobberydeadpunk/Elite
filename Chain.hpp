@@ -85,3 +85,33 @@ ostream& operator<<(ostream& out, const Chain<T>& x) {
     x.Output(out);
     return out;
 }
+
+template<class T>
+Chain<T>& Chain<T>::Delete(int k, T& x) {
+    if (k < 1 || !first_) 
+        throw OutOfBounds();
+    
+    ChainNode<T>* p = first_;
+    if (k == 1)
+        first_ = first_->next_;
+    else {
+        ChainNode<T>* q = first_;
+        for (int i = 1; i < k - 1 && q; i++) 
+            q = q->next_;
+
+        if(!q || !q->next_)
+            throw OutOfBounds();
+
+        p = q->next_;
+        q->next_ = p->next_;
+    }
+
+    x = p->data_;
+    delete p;
+    return *this;
+}
+
+template<class T>
+Chain<T>& Chain<T>::Insert(int k, const T& x) {
+    
+}
