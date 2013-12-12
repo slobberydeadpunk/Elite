@@ -133,3 +133,13 @@ Chain<T>& Chain<T>::Insert(int k, const T& x) {
     }
     return *this;
 }
+
+template<class T>
+void Chain<T>::Erase() {
+    ChainNode<T>* next;
+    while (first_) {
+        next = first_->next_;
+        delete first_;
+        first_ = next;
+    }
+}
