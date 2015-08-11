@@ -80,7 +80,7 @@ bool ArrayStack<T>::IsEmpty() const {
 template <class T>
 void ArrayStack<T>::Output(ostream& out) const {
     for (int i = 0; i <= top_; ++i) {
-        cout << data_[i] << " ";
+        out << data_[i] << " ";
     }
 }
 
@@ -171,7 +171,7 @@ void ChainStack<T>::Output(ostream &out) const
 {
     ChainNode<T>* node = top_;
     while (node != 0) {
-        cout << node->data_ << " ";
+        out << node->data_ << " ";
         node = node->next_;
     }
 }
