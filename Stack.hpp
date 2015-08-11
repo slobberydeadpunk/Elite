@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_SIZE = 100;
+const int STACK_MAX_SIZE = 100;
 
 
 class StackOverFlowException
@@ -28,7 +28,7 @@ public:
 template <class T>
 class ArrayStack {
 private:
-    T data_[MAX_SIZE];
+    T data_[STACK_MAX_SIZE];
     int top_;
     
 public:
@@ -48,7 +48,7 @@ ArrayStack<T>::ArrayStack() {
 
 template <class T>
 void ArrayStack<T>::Push(const T& element) {
-    if (top_ >= MAX_SIZE) {
+    if (top_ >= STACK_MAX_SIZE) {
         throw new StackOverFlowException();
     }
     data_[++top_] = element;
@@ -80,7 +80,7 @@ bool ArrayStack<T>::IsEmpty() const {
 template <class T>
 void ArrayStack<T>::Output(ostream& out) const {
     for (int i = 0; i <= top_; ++i) {
-        out << data_[i] << " ";
+        cout << data_[i] << " ";
     }
 }
 
@@ -171,7 +171,7 @@ void ChainStack<T>::Output(ostream &out) const
 {
     ChainNode<T>* node = top_;
     while (node != 0) {
-        out << node->data_ << " ";
+        cout << node->data_ << " ";
         node = node->next_;
     }
 }
