@@ -64,7 +64,7 @@ void ArrayQueue<T>::Enqueue(const T& element) {
     }
 
     data_[rear_] = element;
-    rear_ = ++rear_ % MAX_SIZE;
+    rear_ == ++rear_ % MAX_SIZE;
 }
 
 template <class T>

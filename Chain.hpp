@@ -1,3 +1,22 @@
+#ifndef __CHAIN_H__
+#define __CHAIN_H__
+
+
+#include <iostream>
+
+using namespace std;
+
+namespace data_structure { namespace chain {
+
+class OutOfBounds {
+public:
+    OutOfBounds() {
+        cout << "Chain out of bounds..." << endl;
+    }
+};
+
+template <typename T>
+class Chain;
 
 template<class T>
 class ChainNode {
@@ -18,13 +37,14 @@ public:
     int Search(const T& x) const;
     Chain<T>& Delete(int k, T& x);
     Chain<T>& Insert(int k, const T& x);
+    void Erase();
     void Output(ostream& out) const;
 private:
     ChainNode<T>* first_;
 };
 
 template<class T>
-Chain::~Chain() {
+Chain<T>::~Chain() {
     ChainNode<T>* next;
     while (first_) {
         next = first_->next_;
@@ -34,7 +54,7 @@ Chain::~Chain() {
 }
 
 template<class T>
-int Chain::Length() const {
+int Chain<T>::Length() const {
     int count = 0;
     ChainNode<T>* current = first_;
     while (current) {
@@ -45,7 +65,7 @@ int Chain::Length() const {
 }
 
 template<class T>
-bool Chain::Find(int k, T& x) const {
+bool Chain<T>::Find(int k, T& x) const {
     if (k < 1) return false;
     ChainNode<T>* current = first_;
     int index = 1;
@@ -61,7 +81,7 @@ bool Chain::Find(int k, T& x) const {
 }
 
 template<class T>
-int Chain::Search(const T& x) const {
+int Chain<T>::Search(const T& x) const {
     ChainNode<T>* current = first_;
     int index = 1;
     while (current && current->data_ != x) {
@@ -76,7 +96,7 @@ template<class T>
 void Chain<T>::Output(ostream& out) const {
     ChainNode<T>* current;
     for (current = first_; current; current = current->next_)
-        out << current->data_; << " ";
+        out << current->data_ << " ";
 }
 
 //overload <<
@@ -88,15 +108,15 @@ ostream& operator<<(ostream& out, const Chain<T>& x) {
 
 template<class T>
 Chain<T>& Chain<T>::Delete(int k, T& x) {
-    if (k < 1 || !first_) 
+    if (k < 1 || !first_)
         throw OutOfBounds();
-    
+
     ChainNode<T>* p = first_;
     if (k == 1)
         first_ = first_->next_;
     else {
         ChainNode<T>* q = first_;
-        for (int i = 1; i < k - 1 && q; i++) 
+        for (int i = 1; i < k - 1 && q; i++)
             q = q->next_;
 
         if(!q || !q->next_)
@@ -113,11 +133,11 @@ Chain<T>& Chain<T>::Delete(int k, T& x) {
 
 template<class T>
 Chain<T>& Chain<T>::Insert(int k, const T& x) {
-    if (k < 1 || !first_) 
+    if (k < 1 || !first_)
         throw OutOfBounds();
-    
+
     ChainNode<T>* p = first_;
-    for (int i = 1; i < k && q; i++)
+    for (int i = 1; i < k && p; i++)
         p = p->next_;
 
     if (k > 0 && !p) throw OutOfBounds();
@@ -143,3 +163,8 @@ void Chain<T>::Erase() {
         first_ = next;
     }
 }
+
+} // namespace chain
+} // namespace data_structure
+
+#endif // __CHAIN_H__
