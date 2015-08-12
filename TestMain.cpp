@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Stack.hpp"
 #include "Queue.hpp"
+#include "BinaryTree.hpp"
 
 int main(int argc, const char * argv[])
 {
@@ -17,7 +18,7 @@ int main(int argc, const char * argv[])
     //test_array_stack();
     //test_chain_stack();
 	//test_array_queue();
-    test_chain_queue();
+    data_structure::queue::test_chain_queue();
     
     return 0;
 }

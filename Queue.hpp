@@ -6,6 +6,9 @@
 
 using namespace std;
 
+namespace data_structure { namespace queue {
+        
+    
 const int MAX_SIZE = 100;
 
 class QueueOverFlowException {
@@ -61,7 +64,7 @@ void ArrayQueue<T>::Enqueue(const T& element) {
     }
 
     data_[rear_] = element;
-    rear_ == ++rear_ % MAX_SIZE;
+    rear_ = ++rear_ % MAX_SIZE;
 }
 
 template <class T>
@@ -258,5 +261,8 @@ void test_chain_queue() {
         cout << "Some exception occurs!" << endl;
     }
 }
+}//namespace queue
+}//namespace data_structure
+
 
 #endif // __QUEUE_H__
