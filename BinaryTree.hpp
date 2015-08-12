@@ -3,7 +3,7 @@
 //  test
 //
 //  Created by zhangnan on 15/8/11.
-//  Copyright (c) 2015ƒÍ zhangnan. All rights reserved.
+//  Copyright (c) 2015∆í√ç zhangnan. All rights reserved.
 //
 
 #ifndef __BINARY_TREE_H__
@@ -79,7 +79,13 @@ namespace data_structure {
             bool AddRoot(T&);
             bool Insert(T&);
 
+            bool Search(T&, TreeNode<T>** pOut);
             bool Search(T&);
+            
+            bool Minium(TreeNode<T>*, TreeNode<T>**);
+            bool Minium(T&, T&);
+            bool Maxium(TreeNode<T>*, TreeNode<T>**);
+            bool Maxium(T&, T&);
 
             bool DeleteTree(TreeNode<T>*);
             bool DeleteTree(T&);
@@ -186,18 +192,151 @@ namespace data_structure {
             while (node_) {
                 if (node_->data_ == obj) {
                     return true;
-                }
-
-                if (node_->data_ > obj && node_->left_ != NULL) {
+                } else if (node_->data_ > obj) {
                     node_ = node_->left_;
                     continue;
-                } else if (node_->data_ < obj && node_->right_ != NULL) {
+                } else if (node_->data_ < obj) {
                     node_ = node_->right_;
                     continue;
                 }
             }
 
             return false;
+        }
+        
+        template <class T>
+        bool Tree<T>::Search(T& obj, TreeNode<T>** pOut) {
+            node_ = root_;
+            while (node_) {
+                if (node_->data_ == obj) {
+                    *pOut = node_;
+                    return true;
+                } else if (node_->data_ > obj) {
+                    node_ = node_->left_;
+                    continue;
+                } else if (node_->data_ < obj) {
+                    node_ = node_->right_;
+                    continue;
+                }
+            }
+            
+            return false;
+        }
+        
+        template <class T>
+        bool Tree<T>::Minium(TreeNode<T>* pNode, TreeNode<T>** pMinNode) {
+            if (!pNode || !pNode->left_) {
+                return false;
+            }
+            while (!pNode->left_) {
+                pNode = pNode->left_;
+            }
+            *pMinNode = pNode;
+            return true;
+        }
+        
+        template <class T>
+        bool Tree<T>::Minium(T& obj, T& objMin) {
+            TreeNode<T>* pNode, pMinNode = NULL;
+            if (Search(obj, &pNode) == false) {
+                return false;
+            }
+            Minium(pNode, &pMinNode);
+            if (!pMinNode) {
+                return false;
+            } else {
+                objMin = pMinNode->data_;
+                return true;
+            }
+        }
+        
+        template <class T>
+        bool Tree<T>::Maxium(TreeNode<T>* pNode, TreeNode<T>** pMaxNode) {
+            if (!pNode || !pNode->right_) {
+                return false;
+            }
+            while (!pNode->right_) {
+                pNode = pNode->right_;
+            }
+            *pMaxNode = pNode;
+            return true;
+        }
+        
+        template <class T>
+        bool Tree<T>::Maxium(T& obj, T& objMax) {
+            TreeNode<T>* pNode, pMaxNode = NULL;
+            if (Search(obj, &pNode) == false) {
+                return false;
+            }
+            Maxium(pNode, &pMaxNode);
+            if (!pMaxNode) {
+                return false;
+            } else {
+                objMax = pMaxNode->data_;
+                return true;
+            }
+        }
+        
+        
+        template <class T>
+        bool Tree<T>::InorderTreeWalk(TreeNode<T>* pNodeI) {
+            TreeNode<T>* pNode = pNodeI;
+            if (!pNode) {
+                InorderTreeWalk(pNode->left_);
+                lstInorder_->Insert(lstInorder_->Lengh(), pNode->data_);
+                InorderTreeWalk(pNode->right_);
+            }
+        }
+        
+        template <class T>
+        bool Tree<T>::PreorderTreeWalk(TreeNode<T>* pNodePr) {
+            TreeNode<T>* pNode = pNodePr;
+            if (!pNode) {
+                lstPreorder_->Insert(lstPreorder_->Lengh(), pNode->data_);
+                PreorderTreeWalk(pNode->left_);
+                PreorderTreeWalk(pNode->right_);
+            }
+        }
+        
+        template <class T>
+        bool Tree<T>::PostorderTreeWalk(TreeNode<T>* pNodePo) {
+            TreeNode<T>* pNode = pNodePo;
+            if (!pNode) {
+                PostorderTreeWalk(pNode->left_);
+                PostorderTreeWalk(pNode->right_);
+                lstPostorder_->Insert(lstPostorder_->Lengh(), pNode->data_);
+            }
+        }
+        
+        
+        template <class T>
+        bool Tree<T>::InorderTreeWalk(T& obj) {
+            TreeNode<T>* pNode = NULL;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            return InorderTreeWalk(pNode);
+        }
+        
+        template <class T>
+        bool Tree<T>::PreorderTreeWalk(T& obj) {
+            TreeNode<T>* pNode = NULL;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            return PreorderTreeWalk(pNode);
+        }
+        
+        template <class T>
+        bool Tree<T>::PostorderTreeWalk(T& obj) {
+            TreeNode<T>* pNode = NULL;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            return PostorderTreeWalk(pNode);
         }
 
     }
