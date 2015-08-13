@@ -86,6 +86,19 @@ namespace data_structure {
             bool Minium(T&, T&);
             bool Maxium(TreeNode<T>*, TreeNode<T>**);
             bool Maxium(T&, T&);
+            
+            /*bool Successor(TreeNode<T>*, TreeNode<T>**);
+            bool Successor(T&, T&);
+            bool Predecessor(TreeNode<T>*, TreeNode<T>**);
+            bool Predecessor(T&, T&);*/
+            
+            TreeNode<T>* Parent(TreeNode<T>*);
+            TreeNode<T>* Left(TreeNode<T>*);
+            TreeNode<T>* Right(TreeNode<T>*);
+            bool Parent(T&, T&);
+            bool Left(T&, T&);
+            bool Right(T&, T&);
+            
 
             bool DeleteTree(TreeNode<T>*);
             bool DeleteTree(T&);
@@ -276,6 +289,72 @@ namespace data_structure {
                 return true;
             }
         }
+        
+        /*template <class T>
+        bool Tree<T>::Successor(TreeNode<T>* pNode, TreeNode<T>** pOut) {
+            
+        }*/
+        
+        template <class T>
+        TreeNode<T>* Tree<T>::Parent(TreeNode<T>* pNode) {
+            return pNode->parent_;
+        }
+        
+        template <class T>
+        TreeNode<T>* Tree<T>::Left(TreeNode<T>* pNode) {
+            return pNode->left_;
+        }
+        
+        template <class T>
+        TreeNode<T>* Tree<T>::Right(TreeNode<T>* pNode) {
+            return pNode->right_;
+        }
+        
+        template <class T>
+        bool Tree<T>::Parent(T& obj, T& objOut) {
+            TreeNode<T>* pNode;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            pNode = Parent(pNode);
+            if (!pNode) {
+                return false;
+            }
+            objOut = pNode->data_;
+            return true;
+        }
+        
+        template <class T>
+        bool Tree<T>::Left(T& obj, T& objOut) {
+            TreeNode<T>* pNode;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            pNode = Left(pNode);
+            if (!pNode) {
+                return false;
+            }
+            objOut = pNode->data_;
+            return true;
+        }
+        
+        template <class T>
+        bool Tree<T>::Right(T& obj, T& objOut) {
+            TreeNode<T>* pNode;
+            Search(obj, &pNode);
+            if (!pNode) {
+                return false;
+            }
+            pNode = Right(pNode);
+            if (!pNode) {
+                return false;
+            }
+            objOut = pNode->data_;
+            return true;
+        }
+        
         
         
         template <class T>
